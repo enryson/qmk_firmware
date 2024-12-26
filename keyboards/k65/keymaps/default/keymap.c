@@ -1,6 +1,8 @@
 #include QMK_KEYBOARD_H
 
-
+enum custom_keycodes {
+    RGB_TOGGLE_EFFECT = SAFE_RANGE, // Código seguro para novos keycodes personalizados
+};
 // Layout físico do teclado (Layer 0 - Padrão)
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -22,3 +24,4 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,    KC_NO,    KC_NO,    KC_NO
     )
 };
+
