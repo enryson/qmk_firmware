@@ -1,13 +1,5 @@
 #include QMK_KEYBOARD_H
 
-#define _BASE 0
-#define RGB_TOGGLE_KEY KC_F
-
-void matrix_scan_user(void) {
-    if (is_pressing(KC_F)) { // A tecla F foi pressionada
-        rgblight_mode_next(); // Alterna para o próximo efeito RGB
-    }
-}
 
 // Layout físico do teclado (Layer 0 - Padrão)
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -30,33 +22,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,    KC_NO,    KC_NO,    KC_NO
     )
 };
-
-led_config_t g_led_config = { {
-    // Key Matrix to LED Index
-    {   0,   1,   2,   3 },  // Primeira linha da matriz (associada aos LEDs 0 a 3)
-    {   4,   5,   6,   7 },  // Segunda linha (LEDs 4 a 7)
-    {   8,   9,  10,  11 },  // Terceira linha (LEDs 8 a 11)
-    {  12,  13, NO_LED, NO_LED } // Última linha (LEDs 12 e 13)
-}, {
-    // LED Index to Physical Position
-    {   0,  16 }, // LED 0
-    {  16,  16 }, // LED 1
-    {  32,  16 }, // LED 2
-    {  48,  16 }, // LED 3
-    {  64,  16 }, // LED 4
-    {  80,  16 }, // LED 5
-    {  96,  16 }, // LED 6
-    { 112,  16 }, // LED 7
-    { 128,  16 }, // LED 8
-    { 144,  16 }, // LED 9
-    { 160,  16 }, // LED 10
-    { 176,  16 }, // LED 11
-    { 192,  16 }, // LED 12
-    { 208,  16 }  // LED 13
-}, {
-    // LED Index to Flag
-    1, 1, 1, 1,   // LEDs 0 a 3 (ativados para camada 1)
-    1, 1, 1, 1,   // LEDs 4 a 7
-    1, 1, 1, 1,   // LEDs 8 a 11
-    1, 1          // LEDs 12 e 13
-} };
