@@ -1,6 +1,6 @@
 {
-    "manufacturer": "enryson",
-    "keyboard_name": "k65reborn",
+    "manufacturer": "Enryson",
+    "keyboard_name": "K65 Mini Reborn",
     "maintainer": "enryson",
     "bootloader": "rp2040",
     "diode_direction": "COL2ROW",
