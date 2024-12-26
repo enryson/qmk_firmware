@@ -1,9 +1,13 @@
 #include QMK_KEYBOARD_H
 
 enum custom_keycodes {
-    RGB_TOGGLE_EFFECT = SAFE_RANGE, // Código seguro para novos keycodes personalizados
+    RGB_EFFECT = SAFE_RANGE, 
+    RGB_COLOR = QK_RGB_MATRIX_HUE_UP,
+    RGB_TOGGLE = QK_RGB_MATRIX_TOGGLE,
+    B_UP = QK_RGB_MATRIX_VALUE_UP,
+    B_DOWN = QK_RGB_MATRIX_VALUE_DOWN,
 };
-// Layout físico do teclado (Layer 0 - Padrão)
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     // Layer 0 - Padrão
@@ -17,11 +21,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     // Layer 1 - Funções e Multimídia
     [1] = LAYOUT_ortho_5x14(
-        KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11,   KC_F12,   KC_DEL,
-        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_MUTE, KC_VOLU, KC_NO,    KC_NO,    KC_NO,    KC_NO,
-        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_VOLD, KC_NO,    KC_NO,    KC_NO,    KC_NO,
-        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_PSCR, KC_NO,   KC_MPRV, KC_MPLY,  KC_MNXT,  KC_NO,    KC_NO,
-        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,    KC_NO,    KC_NO,    KC_NO
+        KC_GRV,  KC_F1,   KC_F2,   KC_F3,       KC_F4,        KC_F5,       KC_F6,   KC_F7,    KC_F8,   KC_F9,   KC_F10,   KC_F11,   KC_F12,   KC_DEL,
+        KC_NO,   KC_NO,   KC_NO,   KC_NO,       KC_NO,        KC_NO,       KC_NO,   B_UP,     KC_MUTE, KC_VOLU, KC_NO,    KC_NO,    KC_NO,    KC_NO,
+        KC_NO,   KC_NO,   KC_NO,   KC_NO,       KC_NO,        KC_NO,       KC_NO,   B_DOWN,   KC_NO,   KC_VOLD, KC_NO,    KC_NO,    KC_NO,    KC_NO,
+        KC_NO,   KC_NO,   KC_NO,   RGB_TOGGLE,  RGB_EFFECT,   RGB_COLOR,   KC_NO,   KC_PSCR,  KC_NO,   KC_MPRV, KC_MPLY,  KC_MNXT,  KC_NO,    KC_NO,
+        KC_NO,   KC_NO,   KC_NO,   KC_NO,       KC_NO,        KC_NO,       KC_NO,   KC_NO,    KC_NO,   KC_NO,   KC_NO,    KC_NO,    KC_NO,    KC_NO
     )
 };
 
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case RGB_EFFECT:
+            if (record->event.pressed) {
+                // Alterna para o próximo efeito de iluminação
+                rgblight_step();
+            }
+            return false; // Não processar o keycode padrão
+        default:
+            return true; // Processa outros keycodes normalmente
+        
+    }
+}
